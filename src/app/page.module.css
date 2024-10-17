@@ -1,0 +1,55 @@
+.container {
+	width: 100%;
+	height: 100%;
+	background-color: #3a673d;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 32px;
+}
+.logo {
+	width: fit-content;
+	border-radius: 10px;
+	border: 2px solid #db498f;
+}
+.logoImg {
+	border-radius: 10px;
+}
+.signinLink {
+	background-color: #db498f;
+	color: #fff;
+	padding: 16px 32px;
+	border-radius: 10px;
+	font-size: 18px;
+	display: -webkit-box;
+}
+@media screen and (max-width: 600px) {
+	.logoImg {
+		width: 400px;
+		height: 200px;
+	}
+	.linkContainer {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+	.signinLink {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		border-radius: none;
+	}
+}
+@media screen and (min-width: 600px) {
+	.logoImg {
+		width: 500px;
+		height: 400px;
+	}
+}
+@media screen and (min-width: 992px) {
+	.logoImg {
+		width: 800px;
+		height: 500px;
+	}
+}
