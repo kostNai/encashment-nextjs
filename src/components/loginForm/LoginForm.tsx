@@ -1,8 +1,35 @@
+'use client'
+
+import { FormEvent, ReactEventHandler, useState } from 'react'
 import styles from './LoginForm.module.css'
+import { signIn, useSession } from 'next-auth/react'
 
 export default function LoginForm() {
+	const [user, setUser] = useState({ username: '', password: '' })
+
+	const session = useSession()
+
+	console.log(session)
+
+	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setUser({ ...user, [e.target.name]: e.target.value })
+	}
+
+	const onSubmitHandler = async (e: FormEvent) => {
+		e.preventDefault()
+		try {
+			const res = await signIn('credentials', {
+				username: user.username,
+				password: user.password
+			})
+			console.log(res)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 	return (
-		<form className={styles.loginForm}>
+		<form className={styles.loginForm} onSubmit={onSubmitHandler}>
 			<h2 className={styles.loginFormTitle}>Вхід</h2>
 			<div className={styles.loginFormInputs}>
 				<label htmlFor="username" className={styles.loginFormLabel}>
@@ -12,6 +39,8 @@ export default function LoginForm() {
 						placeholder="Логін"
 						className={styles.loginFormInput}
 						name="username"
+						value={user.username}
+						onChange={onChangeHandler}
 					/>
 				</label>
 				<label htmlFor="password" className={styles.loginFormLabel}>
@@ -21,6 +50,8 @@ export default function LoginForm() {
 						placeholder="Пароль"
 						className={styles.loginFormInput}
 						name="password"
+						value={user.password}
+						onChange={onChangeHandler}
 					/>
 				</label>
 			</div>
