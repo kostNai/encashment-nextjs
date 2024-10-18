@@ -1,0 +1,27 @@
+.profileWrapper {
+	margin-left: 128px;
+	padding-top: 32px;
+}
+.profileTitle {
+	color: #fff;
+	font-size: 32px;
+	font-weight: 400;
+}
+.profileLinks {
+	margin-top: 16px;
+	display: flex;
+	gap: 8px;
+	align-items: flex-end;
+}
+.profileLink {
+	color: #fff;
+	transition: 300ms;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+.active {
+	color: #db498f;
+	font-weight: 600;
+	font-size: 20px;
+}

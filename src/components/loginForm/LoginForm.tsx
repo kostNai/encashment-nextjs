@@ -3,11 +3,13 @@
 import { FormEvent, ReactEventHandler, useState } from 'react'
 import styles from './LoginForm.module.css'
 import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
 	const [user, setUser] = useState({ username: '', password: '' })
 
 	const session = useSession()
+	const router = useRouter()
 
 	console.log(session)
 
@@ -22,7 +24,9 @@ export default function LoginForm() {
 				username: user.username,
 				password: user.password
 			})
-			console.log(res)
+			if (res?.ok) {
+				router.push('/profile')
+			}
 		} catch (error) {
 			console.log(error)
 		}

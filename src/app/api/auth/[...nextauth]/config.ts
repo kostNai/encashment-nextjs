@@ -28,7 +28,7 @@ export const authConfig: AuthOptions = {
 		},
 
 		async redirect({ url, baseUrl }) {
-			return baseUrl
+			return '/profile'
 		},
 
 		async session({ session, user, token }) {
