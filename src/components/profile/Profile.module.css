@@ -2,15 +2,47 @@
 	margin-left: 128px;
 	padding-top: 32px;
 }
+.profileTitleContainer {
+	display: flex;
+	align-items: flex-end;
+	background-color: transparent;
+	gap: 32px;
+}
 .profileTitle {
 	color: #fff;
 	font-size: 32px;
 	font-weight: 400;
+	display: flex;
+	align-items: center;
+}
+.profileIcon {
+	margin-left: 2px;
+	animation: spin infinite 1s linear;
+}
+.logoutBtn {
+	position: relative;
+	background-color: transparent;
+	border: none;
+	outline: none;
+}
+.logoutIcon {
+	cursor: pointer;
+}
+.logoutToolTip {
+	position: absolute;
+	bottom: -15px;
+	left: 0;
+	visibility: hidden;
+	color: #fff;
+	font-size: 12px;
+}
+.logoutBtn:hover .logoutToolTip {
+	visibility: visible;
 }
 .profileLinks {
 	margin-top: 16px;
 	display: flex;
-	gap: 8px;
+	gap: 32px;
 	align-items: flex-end;
 }
 .profileLink {
@@ -22,6 +54,11 @@
 }
 .active {
 	color: #db498f;
-	font-weight: 600;
-	font-size: 20px;
+	text-decoration: underline;
+}
+
+@keyframes spin {
+	100% {
+		transform: rotate(360deg);
+	}
 }

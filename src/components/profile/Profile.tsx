@@ -1,10 +1,12 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import styles from './Profile.module.css'
+import { signOut, useSession } from 'next-auth/react'
 import { ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
+import { RiLoader4Line } from 'react-icons/ri'
+import { SlLogout } from 'react-icons/sl'
+import styles from './Profile.module.css'
 
 type Props = {
 	children: ReactNode
@@ -14,11 +16,32 @@ export default function Profile({ children }: Props) {
 	const session = useSession()
 	const pathName = usePathname()
 
+	const user = session.data?.user
+	console.log(session.data?.expires)
+
+	const onLogoutHandler = async () => {
+		try {
+			const res = await signOut()
+			console.log(res)
+		} catch (error) {}
+	}
+
 	return (
 		<div className={styles.profileWrapper}>
-			<h2 className={styles.profileTitle}>
-				Привіт,{session.data?.user?.username}
-			</h2>
+			<div className={styles.profileTitleContainer}>
+				<div className={styles.profileTitle}>
+					Привіт,
+					{session.status === 'authenticated' ? (
+						session.data?.user?.username
+					) : (
+						<RiLoader4Line className={styles.profileIcon} size={24} />
+					)}
+				</div>
+				<button className={styles.logoutBtn} onClick={onLogoutHandler}>
+					<SlLogout size={25} color="#fff" className={styles.logoutIcon} />
+					<span className={styles.logoutToolTip}>Вихід</span>
+				</button>
+			</div>
 			<div className={styles.profileLinks}>
 				<Link
 					href="/profile/encashment"
@@ -26,7 +49,7 @@ export default function Profile({ children }: Props) {
 						pathName === '/profile/encashment' ? styles.active : ''
 					}`}
 				>
-					Зробити Винесення
+					Зробити винесення
 				</Link>
 				<Link
 					href="/profile/history"
@@ -35,6 +58,14 @@ export default function Profile({ children }: Props) {
 					}`}
 				>
 					Переглянути історію
+				</Link>
+				<Link
+					href="/profile/users"
+					className={`${styles.profileLink} ${
+						pathName === '/profile/users' ? styles.active : ''
+					}`}
+				>
+					Список користувачів
 				</Link>
 			</div>
 			{children}

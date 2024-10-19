@@ -6,14 +6,12 @@
 	align-items: center;
 	justify-content: center;
 	gap: 16px;
-	background-color: #3a673d;
-	border: 2px solid #db498f;
 	border-radius: 10px;
 }
 .loginFormTitle {
 	font-weight: 600;
 	font-size: 32px;
-	color: #fff;
+	color: #0da7e4;
 }
 .loginFormInputs {
 	margin-top: 16px;
@@ -26,7 +24,8 @@
 	flex-direction: column;
 	gap: 2px;
 	font-size: 22px;
-	color: #fff;
+	font-weight: 600;
+	color: #db498f;
 	text-align: center;
 }
 .loginFormInput {
@@ -37,7 +36,7 @@
 	border: none;
 
 	&:focus {
-		outline: 3px solid #041305;
+		outline: 3px solid #db498f;
 	}
 }
 .loginFormBtnContainer {
@@ -45,7 +44,7 @@
 }
 .loginFormBtn {
 	width: 100%;
-	padding: 8px 0;
+	padding: 16px 0;
 	font-size: 16px;
 	border-radius: 15px;
 	border: none;

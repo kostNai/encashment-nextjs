@@ -11,8 +11,6 @@ export default function LoginForm() {
 	const session = useSession()
 	const router = useRouter()
 
-	console.log(session)
-
 	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUser({ ...user, [e.target.name]: e.target.value })
 	}
@@ -34,30 +32,25 @@ export default function LoginForm() {
 
 	return (
 		<form className={styles.loginForm} onSubmit={onSubmitHandler}>
-			<h2 className={styles.loginFormTitle}>Вхід</h2>
+			{/* <h2 className={styles.loginFormTitle}>Вхід</h2> */}
 			<div className={styles.loginFormInputs}>
-				<label htmlFor="username" className={styles.loginFormLabel}>
-					Логін
-					<input
-						type="text"
-						placeholder="Логін"
-						className={styles.loginFormInput}
-						name="username"
-						value={user.username}
-						onChange={onChangeHandler}
-					/>
-				</label>
-				<label htmlFor="password" className={styles.loginFormLabel}>
-					Пароль
-					<input
-						type="text"
-						placeholder="Пароль"
-						className={styles.loginFormInput}
-						name="password"
-						value={user.password}
-						onChange={onChangeHandler}
-					/>
-				</label>
+				<input
+					type="text"
+					placeholder="Логін"
+					className={styles.loginFormInput}
+					name="username"
+					value={user.username}
+					onChange={onChangeHandler}
+				/>
+
+				<input
+					type="password"
+					placeholder="Пароль"
+					className={styles.loginFormInput}
+					name="password"
+					value={user.password}
+					onChange={onChangeHandler}
+				/>
 			</div>
 			<div className={styles.loginFormBtnContainer}>
 				<button className={styles.loginFormBtn}>Увійти</button>
