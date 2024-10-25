@@ -15,15 +15,14 @@ type Props = {
 export default function Profile({ children }: Props) {
 	const session = useSession()
 	const pathName = usePathname()
-
 	const user = session.data?.user
-	console.log(session.data?.expires)
 
 	const onLogoutHandler = async () => {
 		try {
 			const res = await signOut()
-			console.log(res)
-		} catch (error) {}
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (

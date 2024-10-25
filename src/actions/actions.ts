@@ -1,16 +1,29 @@
-// 'use server'
+'use server'
+import axios from 'axios'
+const apiLink = process.env.API_URL
 
-// import { signIn } from 'next-auth/react'
+export const newOperation = async (
+	id: string,
+	prevState: { message: string; success: boolean },
+	formData: FormData
+) => {
+	const data = Object.fromEntries(formData)
+	const operationKeys = Object.keys(data).map((key) => {
+		return { denomination: key }
+	})
+	const operationValues = Object.values(data).map((val) => {
+		return { bills_count: val }
+	})
 
-// export const login = async (form: FormData) => {
-// 	const user = {
-// 		username: form.get('username'),
-// 		password: form.get('password')
-// 	}
-
-// 	try {
-// 		signIn('credentials', { ...user })
-// 	} catch (error) {
-// 		console.log(error)
-// 	}
-// }
+	const operation = operationKeys.map((key, indx) => {
+		return { ...key, ...operationValues[indx] }
+	})
+	const res = await axios.post(`${apiLink}/operations`, {
+		operation,
+		user_id: 1
+	})
+	if (res.status !== 200) {
+		return { message: res.statusText, success: false }
+	}
+	return { message: 'Проведено успішно', success: true }
+}

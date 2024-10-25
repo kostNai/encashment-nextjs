@@ -33,6 +33,7 @@ export const authConfig: AuthOptions = {
 
 		async session({ session, user, token }) {
 			if (token) {
+				session!.user!.id = token.id
 				session!.user!.is_admin = token.is_admin
 				session!.user!.username = token.username
 				session!.user!.name = token.name
