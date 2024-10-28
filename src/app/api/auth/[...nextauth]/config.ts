@@ -2,7 +2,7 @@ import axios from 'axios'
 import { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 export const authConfig: AuthOptions = {
-	secret: process.env.AUTH_SECRET,
+	secret: process.env.NEXTAUTH_SECRET,
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',

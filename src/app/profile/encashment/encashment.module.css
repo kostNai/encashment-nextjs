@@ -1,9 +1,10 @@
 .newEncashmentContainer {
-	margin-top: 32px;
 	display: flex;
 	flex-direction: column;
+	box-sizing: border-box;
 }
 .newEncashmentTitle {
+	margin-top: 32px;
 	width: fit-content;
 	padding-right: 128px;
 	color: #fff;

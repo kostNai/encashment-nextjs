@@ -31,7 +31,7 @@ export default function Profile({ children }: Props) {
 				<div className={styles.profileTitle}>
 					Привіт,
 					{session.status === 'authenticated' ? (
-						session.data?.user?.username
+						user?.username
 					) : (
 						<RiLoader4Line className={styles.profileIcon} size={24} />
 					)}

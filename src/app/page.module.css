@@ -48,7 +48,7 @@
 	color: #78dfe8;
 }
 .notFoundLink {
-	margin-top: 8px;
+	/* margin-top: 8px; */
 	color: #db498f;
 	font-weight: 600;
 	&:hover {

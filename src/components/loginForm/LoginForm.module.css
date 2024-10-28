@@ -14,7 +14,7 @@
 	color: #0da7e4;
 }
 .loginFormInputs {
-	margin-top: 16px;
+	/* margin-top: 16px; */
 	display: flex;
 	flex-direction: column;
 	gap: 16px;

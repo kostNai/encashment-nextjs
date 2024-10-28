@@ -1,6 +1,7 @@
 .profileWrapper {
+	height: 100%;
 	margin-left: 128px;
-	padding-top: 32px;
+	box-sizing: border-box;
 }
 .profileTitleContainer {
 	display: flex;
@@ -9,6 +10,7 @@
 	gap: 32px;
 }
 .profileTitle {
+	margin-top: 32px;
 	color: #fff;
 	font-size: 32px;
 	font-weight: 400;
