@@ -43,6 +43,14 @@
 	padding: px 0;
 	text-align: center;
 }
+.newEncashmentTotalConteiner {
+	border-top: 1px solid #db498f;
+	margin-top: 8px;
+	padding-top: 8px;
+	color: #fff;
+	display: flex;
+	gap: 16px;
+}
 .newEncashmentFormBtns {
 	margin-top: 16px;
 	display: flex;
@@ -67,4 +75,9 @@
 }
 .btnCancel {
 	background-color: #db498f;
+}
+.btnDisabled {
+	&:hover {
+		box-shadow: none;
+	}
 }

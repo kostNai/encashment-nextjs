@@ -1,11 +1,11 @@
 'use client'
-import React, { FormEvent, useContext, useEffect, useState } from 'react'
-import styles from './newOperationForm.module.css'
-import { newOperation } from '@/actions/actions'
+import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import { useFormState } from 'react-dom'
-import ModalLoading from '../modalLoading/ModalLoading'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
+import styles from './newOperationForm.module.css'
+import { newOperation } from '@/actions/actions'
+import ModalLoading from '../modalLoading/ModalLoading'
 
 type Props = {
 	userId: string
@@ -16,19 +16,43 @@ const initialState = {
 	success: false
 }
 
+const denominations: string[] = ['20', '50', '100', '200', '500', '1000']
+
 export default function NewOperatinForm({ userId }: Props) {
 	const addNewOperation = newOperation.bind(null, userId!)
 
 	const [state, formAction] = useFormState(addNewOperation, initialState)
 	const [isLoading, setIsLoading] = useState<boolean | undefined>(false)
+	const [disable, setDisable] = useState<boolean | undefined>(true)
+	const [rerenderVar, setRerenderVar] = useState<number>(0)
+	const [totalSum, setTotalSum] = useState<number | undefined>(0)
+
+	const refs = useRef<HTMLInputElement[]>([])
 	const session = useSession()
 
 	useEffect(() => {
 		if (state.success) setIsLoading(false)
 		if (!session.data?.user) return redirect('/login')
-	}, [state.success, session.data?.user])
+		refs.current.some((e) => e.value.length > 0)
+			? setDisable(false)
+			: setDisable(true)
+	}, [state.success, session.data?.user, rerenderVar])
+
 	const onSubmitHandler = async () => {
 		setIsLoading(true)
+	}
+	const onResetFormHandler = (e: FormEvent) => {
+		setDisable(true)
+		setTotalSum(0)
+	}
+
+	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setTotalSum(
+			refs.current
+				.map((el: HTMLInputElement) => +el.value * +el.name)
+				.reduce((acc, currVal) => acc + currVal)
+		)
+		setRerenderVar(rerenderVar + 1)
 	}
 
 	return isLoading ? (
@@ -44,77 +68,47 @@ export default function NewOperatinForm({ userId }: Props) {
 				<h3>Кількість купюр</h3>
 			</div>
 			<div className={styles.newEncashmentInputsContainer}>
-				<div className={styles.newEncashmentLabelContainer}>
-					<label htmlFor="20" className={styles.newEncashmentLabel}>
-						20грн
-					</label>
-					<input
-						type="number"
-						className={styles.newEncashmentInput}
-						name="20"
-					/>
-				</div>
-				<div className={styles.newEncashmentLabelContainer}>
-					<label htmlFor="50" className={styles.newEncashmentLabel}>
-						50грн
-					</label>
-
-					<input
-						type="number"
-						className={styles.newEncashmentInput}
-						name="50"
-					/>
-				</div>
-				<div className={styles.newEncashmentLabelContainer}>
-					<label htmlFor="100" className={styles.newEncashmentLabel}>
-						100грн
-					</label>
-
-					<input
-						type="number"
-						className={styles.newEncashmentInput}
-						name="100"
-					/>
-				</div>
-				<div className={styles.newEncashmentLabelContainer}>
-					<label htmlFor="200" className={styles.newEncashmentLabel}>
-						200грн
-					</label>
-
-					<input
-						type="number"
-						className={styles.newEncashmentInput}
-						name="200"
-					/>
-				</div>
-				<div className={styles.newEncashmentLabelContainer}>
-					<label htmlFor="500" className={styles.newEncashmentLabel}>
-						500грн
-					</label>
-
-					<input
-						type="number"
-						className={styles.newEncashmentInput}
-						name="500"
-					/>
-				</div>
-				<div className={styles.newEncashmentLabelContainer}>
-					<label htmlFor="1000" className={styles.newEncashmentLabel}>
-						1000грн
-					</label>
-
-					<input
-						type="number"
-						className={styles.newEncashmentInput}
-						name="1000"
-					/>
-				</div>
+				{denominations.map((denomination: string, indx) => (
+					<div
+						className={styles.newEncashmentLabelContainer}
+						key={denomination}
+					>
+						<label htmlFor={denomination} className={styles.newEncashmentLabel}>
+							{denomination}грн
+						</label>
+						<input
+							type="number"
+							className={styles.newEncashmentInput}
+							name={denomination}
+							ref={(el: HTMLInputElement) => {
+								refs.current[indx] = el
+							}}
+							onChange={onChangeHandler}
+						/>
+					</div>
+				))}
+			</div>
+			<div className={styles.newEncashmentTotalConteiner}>
+				<h4>Загальна сума:</h4>
+				<p>{totalSum} грн</p>
 			</div>
 			<div className={styles.newEncashmentFormBtns}>
-				<button type="submit" className={`${styles.btn} ${styles.btnSuccess}`}>
+				<button
+					type="submit"
+					className={
+						disable
+							? `${styles.btn} ${styles.btnSuccess} ${styles.btnDisabled}`
+							: `${styles.btn} ${styles.btnSuccess}`
+					}
+					disabled={disable}
+				>
 					Ок
 				</button>
-				<button type="reset" className={`${styles.btn} ${styles.btnCancel}`}>
+				<button
+					type="reset"
+					className={`${styles.btn} ${styles.btnCancel}`}
+					onClick={onResetFormHandler}
+				>
 					Очистити
 				</button>
 			</div>

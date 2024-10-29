@@ -1,9 +1,10 @@
 .laodingContainer {
 	width: fit-content;
 	margin: 128px auto;
+}
+.laodingIcon {
 	animation: spin infinite 1s linear;
 }
-
 @keyframes spin {
 	100% {
 		transform: rotate(360deg);

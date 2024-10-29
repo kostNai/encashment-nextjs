@@ -1,7 +1,7 @@
-import { newOperation } from '@/actions/actions'
 import styles from './encashment.module.css'
 import NewOperatinForm from '@/components/newOperationForm/NewOperatinForm'
 import { getServerSession } from 'next-auth'
+import { Suspense } from 'react'
 
 export default async function EncashmentPage() {
 	const session = await getServerSession()
