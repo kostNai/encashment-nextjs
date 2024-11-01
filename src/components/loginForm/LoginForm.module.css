@@ -46,6 +46,11 @@
 			1;
 	}
 }
+.loginFormErrors {
+	font-size: 14px;
+	font-weight: 600;
+	color: coral;
+}
 .loginFormBtnContainer {
 	width: 100%;
 }

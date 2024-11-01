@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 export const authConfig: AuthOptions = {
@@ -11,10 +11,15 @@ export const authConfig: AuthOptions = {
 				password: {}
 			},
 			async authorize(credentials, req) {
-				const res = await axios.post('http://127.0.0.1:8000/api/login', {
-					...credentials
-				})
+				const res = await axios
+					.post('http://127.0.0.1:8000/api/login', {
+						...credentials
+					})
+					.catch((error) => {
+						throw new Error(error.response.data.message)
+					})
 				const user = await res.data
+
 				if (res.status && user) {
 					return user
 				}
@@ -28,7 +33,8 @@ export const authConfig: AuthOptions = {
 		},
 
 		async redirect({ url, baseUrl }) {
-			return '/profile'
+			if (url.startsWith('/')) return `${baseUrl}${url}`
+			return baseUrl
 		},
 
 		async session({ session, user, token }) {
