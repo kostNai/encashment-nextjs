@@ -4,4 +4,5 @@ export type User = {
 	username?: string
 	email?: string
 	isAdmin?: boolean
+	pharmacy_number?: number
 }

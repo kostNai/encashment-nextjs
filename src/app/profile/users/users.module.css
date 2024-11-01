@@ -1,0 +1,12 @@
+.usersContainer {
+	width: 100%;
+	padding-top: 128px;
+}
+.addNewUserLink {
+	margin-bottom: 32px;
+	cursor: pointer;
+	transition: 300ms;
+	&:hover {
+		text-decoration: underline;
+	}
+}
