@@ -3,6 +3,7 @@ import { FiUserPlus } from 'react-icons/fi'
 import styles from './users.module.css'
 import { User } from '@/types'
 import UsersTable from '@/components/usersTable/UsersTable'
+import Link from 'next/link'
 
 export default async function AdminUsersPage() {
 	const users: User[] = await (
@@ -10,9 +11,9 @@ export default async function AdminUsersPage() {
 	).data.users
 	return (
 		<div className={styles.usersContainer}>
-			<div className={styles.addNewUserLink}>
+			<Link href="/profile/users/addUser" className={styles.addNewUserLink}>
 				<FiUserPlus /> Додати нового користувача
-			</div>
+			</Link>
 			<UsersTable users={users} />
 		</div>
 	)

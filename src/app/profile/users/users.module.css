@@ -6,6 +6,9 @@
 	margin-bottom: 32px;
 	cursor: pointer;
 	transition: 300ms;
+	display: flex;
+	align-items: center;
+	gap: 4px;
 	&:hover {
 		text-decoration: underline;
 	}

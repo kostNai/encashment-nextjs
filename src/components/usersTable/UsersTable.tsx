@@ -36,7 +36,7 @@ export default function UsersTable({ users }: Props) {
 			</thead>
 			<tbody className={styles.usersTableBody}>
 				{users.map((user) => (
-					<tr>
+					<tr key={user.id}>
 						<th scope="row" className={styles.usersTableTh}>
 							{user.id}
 						</th>
