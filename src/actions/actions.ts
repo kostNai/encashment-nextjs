@@ -27,3 +27,22 @@ export const newOperation = async (
 	}
 	return { message: 'Проведено успішно', success: true }
 }
+
+export const addUser = async (
+	prevState: { message: string; success: boolean },
+	formData: FormData
+) => {
+	const data = Object.fromEntries(formData)
+
+	const res = await axios
+		.post(`${apiLink}/users`, {
+			...data
+		})
+		.catch((error) => {
+			return error.response
+		})
+	if (res.status !== 200) {
+		return { message: res.data.message, success: false }
+	}
+	return { message: 'Додано успішно', success: true }
+}
