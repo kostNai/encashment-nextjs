@@ -6,3 +6,5 @@ export type User = {
 	isAdmin?: boolean
 	pharmacy_number?: number
 }
+
+export type ToastType = 'success' | 'error'

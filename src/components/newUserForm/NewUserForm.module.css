@@ -1,3 +1,6 @@
+.test {
+	position: relative;
+}
 .addUserForm {
 	margin-top: 32px;
 	width: fit-content;
