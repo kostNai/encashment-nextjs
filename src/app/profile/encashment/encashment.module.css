@@ -10,3 +10,13 @@
 	color: #fff;
 	border-bottom: 2px solid #db498f;
 }
+
+@media screen and (max-width: 576px) {
+	.newEncashmentContainer {
+		align-items: center;
+	}
+	.newEncashmentTitle {
+		padding: 0;
+		text-align: center;
+	}
+}

@@ -64,3 +64,17 @@
 		transform: rotate(360deg);
 	}
 }
+@media screen and (max-width: 576px) {
+	.profileWrapper {
+		padding: 0;
+		margin: 0;
+	}
+	.profileTitleContainer {
+		display: flex;
+		justify-content: center;
+	}
+	.profileLinks {
+		display: flex;
+		justify-content: space-around;
+	}
+}
