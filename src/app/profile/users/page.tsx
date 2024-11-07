@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { FiUserPlus } from 'react-icons/fi'
-import styles from './users.module.css'
+import styles from './Users.module.css'
 import { User } from '@/types'
 import UsersTable from '@/components/usersTable/UsersTable'
 import Link from 'next/link'

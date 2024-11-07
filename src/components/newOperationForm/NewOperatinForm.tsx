@@ -31,16 +31,15 @@ export default function NewOperatinForm({ userId }: Props) {
 	const session = useSession()
 
 	useEffect(() => {
-		if (state.success) {
+		if (state.success && totalSum! > 0) {
 			setIsLoading(false)
 			setTotalSum(0)
-			console.log(state)
 			setTimeout(() => {
 				toast.success(state.message, { position: 'top-right' })
 			}, 100)
 		}
 		if (!session.data?.user) return redirect('/login')
-	}, [state.success, session.data?.user, state])
+	}, [state.success, session.data?.user])
 
 	const onSubmitHandler = async (e: FormEvent) => {
 		if (!refs.current.some((e) => e.value.length > 0)) {

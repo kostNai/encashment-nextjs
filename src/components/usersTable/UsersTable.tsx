@@ -1,6 +1,6 @@
 import { MdDeleteForever } from 'react-icons/md'
 import { User } from '@/types'
-import styles from './UsersTable.module.css'
+import styles from './usersTable.module.css'
 
 type Props = {
 	users: User[]
@@ -15,7 +15,7 @@ export default function UsersTable({ users }: Props) {
 						Id
 					</th>
 					<th scope="col" className={styles.usersTableTh}>
-						Usernmae
+						Username
 					</th>
 					<th scope="col" className={styles.usersTableTh}>
 						Email
@@ -48,7 +48,10 @@ export default function UsersTable({ users }: Props) {
 							{user.isAdmin ? 'Адмін' : 'Користувач'}
 						</td>
 						<td className={`${styles.usersTableTd} ${styles.usersTableTdBtn}`}>
-							<MdDeleteForever size={24} className={styles.deleteIcon} />
+							<div className={styles.deleteUserContainer}>
+								<MdDeleteForever size={24} className={styles.deleteIcon} />
+								<span className={styles.toolTip}>Видалити</span>
+							</div>
 						</td>
 					</tr>
 				))}
