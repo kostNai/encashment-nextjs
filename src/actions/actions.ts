@@ -8,8 +8,17 @@ export const newOperation = async (
 	formData: FormData
 ) => {
 	const data = Object.fromEntries(formData)
+	console.log(data)
 	const operationKeys = Object.keys(data).map((key) => {
-		return { denomination: key }
+		if (
+			key === '20' ||
+			key === '50' ||
+			key === '100' ||
+			key === '200' ||
+			key === '500' ||
+			key === '1000'
+		)
+			return { denomination: key }
 	})
 	const operationValues = Object.values(data).map((val) => {
 		return { bills_count: val }
@@ -23,6 +32,7 @@ export const newOperation = async (
 		user_id: 1
 	})
 	if (res.status !== 200) {
+		console.log(res)
 		return { message: res.statusText, success: false }
 	}
 	return { message: 'Проведено успішно', success: true }

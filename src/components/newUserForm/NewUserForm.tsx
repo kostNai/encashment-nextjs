@@ -4,8 +4,8 @@ import styles from './NewUserForm.module.css'
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5'
 import { addUser } from '@/actions/actions'
 import { useFormState } from 'react-dom'
-import { Bounce, ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/ReactToastify.min.css'
 
 const initialState = {
 	message: '',
@@ -17,7 +17,8 @@ export default function NewUserForm() {
 	const [state, formAction] = useFormState(addUser, initialState)
 
 	useEffect(() => {
-		if (state) {
+		console.log(state)
+		if (state.message) {
 			state.success
 				? toast.success(state.message, { position: 'top-right' })
 				: toast.error(state.message, { position: 'top-right' })

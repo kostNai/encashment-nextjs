@@ -58,14 +58,16 @@ export default function Profile({ children }: Props) {
 				>
 					Переглянути історію
 				</Link>
-				<Link
-					href="/profile/users"
-					className={`${styles.profileLink} ${
-						pathName === '/profile/users' ? styles.active : ''
-					}`}
-				>
-					Список користувачів
-				</Link>
+				{user?.is_admin && (
+					<Link
+						href="/profile/users"
+						className={`${styles.profileLink} ${
+							pathName === '/profile/users' ? styles.active : ''
+						}`}
+					>
+						Список користувачів
+					</Link>
+				)}
 			</div>
 			{children}
 		</div>

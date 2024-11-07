@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation'
 import styles from './newOperationForm.module.css'
 import { newOperation } from '@/actions/actions'
 import ModalLoading from '../modalLoading/ModalLoading'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/ReactToastify.min.css'
 
 type Props = {
 	userId: string
@@ -23,26 +25,30 @@ export default function NewOperatinForm({ userId }: Props) {
 
 	const [state, formAction] = useFormState(addNewOperation, initialState)
 	const [isLoading, setIsLoading] = useState<boolean | undefined>(false)
-	const [disable, setDisable] = useState<boolean | undefined>(true)
-	const [rerenderVar, setRerenderVar] = useState<number>(0)
 	const [totalSum, setTotalSum] = useState<number | undefined>(0)
 
 	const refs = useRef<HTMLInputElement[]>([])
 	const session = useSession()
 
 	useEffect(() => {
-		if (state.success) setIsLoading(false)
+		if (state.success) {
+			setIsLoading(false)
+			setTotalSum(0)
+			console.log(state)
+			setTimeout(() => {
+				toast.success(state.message, { position: 'top-right' })
+			}, 100)
+		}
 		if (!session.data?.user) return redirect('/login')
-		refs.current.some((e) => e.value.length > 0)
-			? setDisable(false)
-			: setDisable(true)
-	}, [state.success, session.data?.user, rerenderVar])
+	}, [state.success, session.data?.user, state])
 
-	const onSubmitHandler = async () => {
-		setIsLoading(true)
+	const onSubmitHandler = async (e: FormEvent) => {
+		if (!refs.current.some((e) => e.value.length > 0)) {
+			e.preventDefault()
+			toast.error('Внесіть дані', { position: 'top-right' })
+		} else setIsLoading(true)
 	}
 	const onResetFormHandler = (e: FormEvent) => {
-		setDisable(true)
 		setTotalSum(0)
 	}
 
@@ -52,7 +58,6 @@ export default function NewOperatinForm({ userId }: Props) {
 				.map((el: HTMLInputElement) => +el.value * +el.name)
 				.reduce((acc, currVal) => acc + currVal)
 		)
-		setRerenderVar(rerenderVar + 1)
 	}
 
 	return isLoading ? (
@@ -63,6 +68,7 @@ export default function NewOperatinForm({ userId }: Props) {
 			className={styles.newEncashmentForm}
 			onSubmit={onSubmitHandler}
 		>
+			<ToastContainer />
 			<div className={styles.newEncashmentInputsTitlesContainer}>
 				<h3>Номінал</h3>
 				<h3>Кількість купюр</h3>
@@ -93,15 +99,7 @@ export default function NewOperatinForm({ userId }: Props) {
 				<p>{totalSum} грн</p>
 			</div>
 			<div className={styles.newEncashmentFormBtns}>
-				<button
-					type="submit"
-					className={
-						disable
-							? `${styles.btn} ${styles.btnSuccess} ${styles.btnDisabled}`
-							: `${styles.btn} ${styles.btnSuccess}`
-					}
-					disabled={disable}
-				>
+				<button type="submit" className={`${styles.btn} ${styles.btnSuccess}`}>
 					Ок
 				</button>
 				<button
