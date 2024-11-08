@@ -1,5 +1,5 @@
 import { RiLoader4Line } from 'react-icons/ri'
-import styles from './ModalLoading.module.css'
+import styles from './modalLoading.module.css'
 
 export default function ModalLoading() {
 	return (

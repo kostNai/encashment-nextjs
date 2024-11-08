@@ -4,11 +4,12 @@ const apiLink = process.env.API_URL
 
 export const newOperation = async (
 	id: string,
+	totalSum: number,
 	prevState: { message: string; success: boolean },
 	formData: FormData
 ) => {
 	const data = Object.fromEntries(formData)
-	console.log(data)
+
 	const operationKeys = Object.keys(data).map((key) => {
 		if (
 			key === '20' ||
@@ -29,10 +30,11 @@ export const newOperation = async (
 	})
 	const res = await axios.post(`${apiLink}/operations`, {
 		operation,
-		user_id: 1
+		user_id: id,
+		total_sum: totalSum
 	})
 	if (res.status !== 200) {
-		console.log(res)
+		console.log(res.data.message)
 		return { message: res.statusText, success: false }
 	}
 	return { message: 'Проведено успішно', success: true }

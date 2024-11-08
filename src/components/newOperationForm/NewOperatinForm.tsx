@@ -21,11 +21,12 @@ const initialState = {
 const denominations: string[] = ['20', '50', '100', '200', '500', '1000']
 
 export default function NewOperatinForm({ userId }: Props) {
-	const addNewOperation = newOperation.bind(null, userId!)
+	const [totalSum, setTotalSum] = useState<number | undefined>(0)
+
+	const addNewOperation = newOperation.bind(null, userId!, totalSum!)
 
 	const [state, formAction] = useFormState(addNewOperation, initialState)
 	const [isLoading, setIsLoading] = useState<boolean | undefined>(false)
-	const [totalSum, setTotalSum] = useState<number | undefined>(0)
 
 	const refs = useRef<HTMLInputElement[]>([])
 	const session = useSession()
@@ -39,7 +40,7 @@ export default function NewOperatinForm({ userId }: Props) {
 			}, 100)
 		}
 		if (!session.data?.user) return redirect('/login')
-	}, [state.success, session.data?.user])
+	}, [state, session.data?.user])
 
 	const onSubmitHandler = async (e: FormEvent) => {
 		if (!refs.current.some((e) => e.value.length > 0)) {

@@ -1,50 +1,60 @@
+import { Operation } from '@/types'
 import styles from './OperatinosTable.module.css'
+import { MdDeleteForever } from 'react-icons/md'
 
-export default function OperationsTable() {
+type Props = {
+	operations: Operation[]
+}
+
+export default function OperationsTable({ operations }: Props) {
 	return (
 		<table className={styles.operationsTable}>
 			<thead className={styles.operationsTableHead}>
 				<tr>
 					<th scope="col" className={styles.operationsTableTh}>
-						Person
+						Id
 					</th>
 					<th scope="col" className={styles.operationsTableTh}>
-						Most interest in
+						Номер винесення
 					</th>
 					<th scope="col" className={styles.operationsTableTh}>
-						Age
+						Номер аптеки
+					</th>
+					<th scope="col" className={styles.operationsTableTh}>
+						Сума(грн)
+					</th>
+					<th scope="col" className={styles.operationsTableTh}>
+						Дата винесення
+					</th>
+					<th scope="col" className={styles.usersTableTh}>
+						Керування
 					</th>
 				</tr>
 			</thead>
 			<tbody className={styles.operationsTableBody}>
-				<tr>
-					<th scope="row" className={styles.operationsTableTh}>
-						Chris
-					</th>
-					<td className={styles.operationsTableTd}>HTML tables</td>
-					<td>22</td>
-				</tr>
-				<tr>
-					<th scope="row" className={styles.operationsTableTh}>
-						Dennis
-					</th>
-					<td className={styles.operationsTableTd}>Web accessibility</td>
-					<td className={styles.operationsTableTd}>45</td>
-				</tr>
-				<tr>
-					<th scope="row" className={styles.operationsTableTh}>
-						Sarah
-					</th>
-					<td className={styles.operationsTableTd}>JavaScript frameworks</td>
-					<td className={styles.operationsTableTd}>29</td>
-				</tr>
-				<tr>
-					<th scope="row" className={styles.operationsTableTh}>
-						Karen
-					</th>
-					<td className={styles.operationsTableTd}>Web performance</td>
-					<td className={styles.operationsTableTd}>36</td>
-				</tr>
+				{operations.map((operation) => (
+					<tr key={operation.id}>
+						<th scope="row" className={styles.operationsTableTh}>
+							{operation.id}
+						</th>
+						<td className={styles.operationsTableTd}>{operation.number}</td>
+						<td className={styles.operationsTableTd}>
+							{operation.user?.pharmacy_number}
+						</td>
+						<td className={styles.operationsTableTd}>{operation.total_sum}</td>
+						<td className={styles.operationsTableTd}>
+							{new Date(operation.created_at).toLocaleDateString()}
+						</td>
+						<td
+							className={`${styles.operationsTableTd} ${styles.operationsTableTdBtn}`}
+						>
+							<div className={styles.deleteOperationContainer}>
+								<MdDeleteForever size={24} className={styles.deleteIcon} />
+								<span className={styles.toolTip}>Видалити</span>
+							</div>
+						</td>
+					</tr>
+				))}
 			</tbody>
 		</table>
 	)

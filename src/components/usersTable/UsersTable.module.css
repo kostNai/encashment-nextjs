@@ -31,6 +31,7 @@
 .deleteUserContainer {
 	position: relative;
 	padding: 4px 0;
+	transition: 300ms;
 }
 .toolTip {
 	position: absolute;
