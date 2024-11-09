@@ -1,5 +1,6 @@
 'use server'
 import axios from 'axios'
+import { revalidatePath } from 'next/cache'
 const apiLink = process.env.API_URL
 
 export const newOperation = async (
@@ -57,4 +58,7 @@ export const addUser = async (
 		return { message: res.data.message, success: false }
 	}
 	return { message: 'Додано успішно', success: true }
+}
+export const revalidateByPath = (path: string) => {
+	revalidatePath(path, 'page')
 }

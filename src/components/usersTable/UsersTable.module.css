@@ -1,3 +1,6 @@
+.usersTableContainer {
+	position: relative;
+}
 .usersTable {
 	border-collapse: collapse;
 	border: 2px solid rgb(140 140 140);

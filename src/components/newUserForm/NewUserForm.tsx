@@ -1,8 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './NewUserForm.module.css'
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5'
-import { addUser } from '@/actions/actions'
+import { addUser, revalidateByPath } from '@/actions/actions'
 import { useFormState } from 'react-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/ReactToastify.min.css'
@@ -15,20 +15,22 @@ const initialState = {
 export default function NewUserForm() {
 	const [isText, setIsText] = useState<boolean | undefined>(false)
 	const [state, formAction] = useFormState(addUser, initialState)
+	const formRef = useRef<HTMLFormElement>(null)
 
 	useEffect(() => {
-		console.log(state)
+		revalidateByPath('/profile/users')
 		if (state.message) {
 			state.success
 				? toast.success(state.message, { position: 'top-right' })
 				: toast.error(state.message, { position: 'top-right' })
 		}
+		if (state.success) formRef.current?.reset()
 	}, [state])
 
 	return (
 		<div className={styles.test}>
 			<ToastContainer />
-			<form action={formAction} className={styles.addUserForm}>
+			<form action={formAction} className={styles.addUserForm} ref={formRef}>
 				<h2 className={styles.addUserFormTitle}>Новий користувач</h2>
 				<div className={styles.addUserFormLabelesContainer}>
 					<label htmlFor="username" className={styles.addUserFormLabel}>
