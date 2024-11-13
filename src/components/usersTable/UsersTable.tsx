@@ -7,12 +7,31 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/ReactToastify.min.css'
 import { revalidateByPath } from '@/actions/actions'
+import { useEffect, useState } from 'react'
 
 type Props = {
 	users: User[]
 }
+const tableItems = [
+	{ name: 'id', title: 'Id' },
+	{ name: 'username', title: 'Username' },
+	{ name: 'email', title: 'Email' },
+	{ name: 'name', title: "Ім'я" },
+	{ name: 'pharmacy_number', title: 'Номер аптеки' },
+	{ name: 'is_admin', title: 'Роль' },
+	{ name: 'actions', title: 'Дії' }
+]
 
 export default function UsersTable({ users }: Props) {
+	const [sortedUsers, setSortedUsers] = useState<User[] | undefined>([])
+	const [isReverseSorting, setIsReverseSorting] = useState<boolean | undefined>(
+		false
+	)
+
+	useEffect(() => {
+		setSortedUsers([...users])
+	}, [])
+
 	const onDeleteUserHandler = async (userId: string) => {
 		try {
 			const res = await axios.delete('http://localhost:3000/api/users', {
@@ -29,13 +48,40 @@ export default function UsersTable({ users }: Props) {
 		}
 	}
 
+	const onSortingHandler = (key: string) => {
+		if (isReverseSorting) {
+			const sorted = sortedUsers?.sort((a: any, b: any) => {
+				return a[key] < b[key] ? 1 : a[key] > b[key] ? -1 : 0
+			})
+			setSortedUsers([...sorted!])
+			setIsReverseSorting(!isReverseSorting)
+		} else {
+			const sorted = sortedUsers?.sort((a: any, b: any) => {
+				return a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0
+			})
+			setSortedUsers([...sorted!])
+			setIsReverseSorting(!isReverseSorting)
+		}
+	}
+
 	return (
 		<div className={styles.usersTableContainer}>
 			<ToastContainer />
+			<button onClick={() => onSortingHandler('is_admin')}>Sort</button>
 			<table className={styles.usersTable}>
 				<thead className={styles.usersTableHead}>
 					<tr>
-						<th scope="col" className={styles.usersTableTh}>
+						{tableItems.map((item) => (
+							<th
+								scope="col"
+								className={styles.usersTableTh}
+								key={item.name}
+								onClick={() => onSortingHandler(item.name)}
+							>
+								{item.title}
+							</th>
+						))}
+						{/* <th scope="col" className={styles.usersTableTh}>
 							Id
 						</th>
 						<th scope="col" className={styles.usersTableTh}>
@@ -55,11 +101,11 @@ export default function UsersTable({ users }: Props) {
 						</th>
 						<th scope="col" className={styles.usersTableTh}>
 							Керування
-						</th>
+						</th> */}
 					</tr>
 				</thead>
 				<tbody className={styles.usersTableBody}>
-					{users.map((user) => (
+					{sortedUsers?.map((user) => (
 						<tr key={user.id}>
 							<th scope="row" className={styles.usersTableTh}>
 								{user.id}
@@ -69,7 +115,7 @@ export default function UsersTable({ users }: Props) {
 							<td className={styles.usersTableTd}>{user.name}</td>
 							<td className={styles.usersTableTd}>{user.pharmacy_number}</td>
 							<td className={styles.usersTableTd}>
-								{user.isAdmin ? 'Адмін' : 'Користувач'}
+								{user.is_admin ? 'Адмін' : 'Користувач'}
 							</td>
 							<td
 								className={`${styles.usersTableTd} ${styles.usersTableTdBtn}`}

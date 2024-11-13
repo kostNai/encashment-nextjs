@@ -62,6 +62,6 @@ export const authConfig: AuthOptions = {
 	},
 	session: {
 		strategy: 'jwt',
-		maxAge: 3600
+		maxAge: 43200
 	}
 }

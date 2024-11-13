@@ -3,7 +3,7 @@ export type User = {
 	name?: string
 	username?: string
 	email?: string
-	isAdmin?: boolean
+	is_admin?: boolean
 	pharmacy_number?: number
 }
 
