@@ -7,7 +7,9 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/ReactToastify.min.css'
 import { revalidateByPath } from '@/actions/actions'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { CiSearch } from 'react-icons/ci'
+import { IoCloseOutline } from 'react-icons/io5'
 
 type Props = {
 	users: User[]
@@ -19,7 +21,7 @@ const tableItems = [
 	{ name: 'name', title: "Ім'я" },
 	{ name: 'pharmacy_number', title: 'Номер аптеки' },
 	{ name: 'is_admin', title: 'Роль' },
-	{ name: 'actions', title: 'Дії' }
+	{ name: 'actions', title: 'Керування' }
 ]
 
 export default function UsersTable({ users }: Props) {
@@ -27,11 +29,19 @@ export default function UsersTable({ users }: Props) {
 	const [isReverseSorting, setIsReverseSorting] = useState<boolean | undefined>(
 		false
 	)
+	const [filteredUsers, setFilteredUsers] = useState<User[] | undefined>([])
+	const [isInputValueLength, setIsInputValueLength] = useState<
+		boolean | undefined
+	>(false)
+	const [searchValue, setSearchValue] = useState<string | undefined>('')
+	const searchRef = useRef<HTMLInputElement>(null)
 
 	useEffect(() => {
-		setSortedUsers([...users])
+		if (sortedUsers!.length < 1) setSortedUsers([...users])
+	}, [searchValue])
+	useEffect(() => {
+		setFilteredUsers([...users!])
 	}, [])
-
 	const onDeleteUserHandler = async (userId: string) => {
 		try {
 			const res = await axios.delete('http://localhost:3000/api/users', {
@@ -53,21 +63,54 @@ export default function UsersTable({ users }: Props) {
 			const sorted = sortedUsers?.sort((a: any, b: any) => {
 				return a[key] < b[key] ? 1 : a[key] > b[key] ? -1 : 0
 			})
-			setSortedUsers([...sorted!])
+			setFilteredUsers([...sorted!])
 			setIsReverseSorting(!isReverseSorting)
 		} else {
 			const sorted = sortedUsers?.sort((a: any, b: any) => {
 				return a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0
 			})
-			setSortedUsers([...sorted!])
+			setFilteredUsers([...sorted!])
 			setIsReverseSorting(!isReverseSorting)
 		}
+	}
+	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchValue(e.target.value)
+		e.target.value.length > 0
+			? setIsInputValueLength(true)
+			: setIsInputValueLength(false)
+
+		const filtered = sortedUsers!.filter((user: User) => {
+			return JSON.stringify(Object.values(user)).includes(e.target.value)
+		})
+		setFilteredUsers([...filtered])
+	}
+	const onResetSearchValueHandler = () => {
+		setIsInputValueLength(false)
+		setSearchValue('')
 	}
 
 	return (
 		<div className={styles.usersTableContainer}>
 			<ToastContainer />
-			<button onClick={() => onSortingHandler('is_admin')}>Sort</button>
+			<div className={styles.usersTableSearchContainer}>
+				<input
+					type="text"
+					className={styles.usersTableSearchInput}
+					placeholder="Пошук..."
+					onChange={onChangeHandler}
+					value={searchValue}
+					ref={searchRef}
+				/>
+				{isInputValueLength ? (
+					<IoCloseOutline
+						className={styles.usersTableSearchIcon}
+						size={24}
+						onClick={onResetSearchValueHandler}
+					/>
+				) : (
+					<CiSearch className={styles.usersTableSearchIcon} size={24} />
+				)}
+			</div>
 			<table className={styles.usersTable}>
 				<thead className={styles.usersTableHead}>
 					<tr>
@@ -81,56 +124,36 @@ export default function UsersTable({ users }: Props) {
 								{item.title}
 							</th>
 						))}
-						{/* <th scope="col" className={styles.usersTableTh}>
-							Id
-						</th>
-						<th scope="col" className={styles.usersTableTh}>
-							Username
-						</th>
-						<th scope="col" className={styles.usersTableTh}>
-							Email
-						</th>
-						<th scope="col" className={styles.usersTableTh}>
-							Ім'я
-						</th>
-						<th scope="col" className={styles.usersTableTh}>
-							Номер аптеки
-						</th>
-						<th scope="col" className={styles.usersTableTh}>
-							Роль
-						</th>
-						<th scope="col" className={styles.usersTableTh}>
-							Керування
-						</th> */}
 					</tr>
 				</thead>
 				<tbody className={styles.usersTableBody}>
-					{sortedUsers?.map((user) => (
-						<tr key={user.id}>
-							<th scope="row" className={styles.usersTableTh}>
-								{user.id}
-							</th>
-							<td className={styles.usersTableTd}>{user.username}</td>
-							<td className={styles.usersTableTd}>{user.email}</td>
-							<td className={styles.usersTableTd}>{user.name}</td>
-							<td className={styles.usersTableTd}>{user.pharmacy_number}</td>
-							<td className={styles.usersTableTd}>
-								{user.is_admin ? 'Адмін' : 'Користувач'}
-							</td>
-							<td
-								className={`${styles.usersTableTd} ${styles.usersTableTdBtn}`}
-							>
-								<div className={styles.deleteUserContainer}>
-									<MdDeleteForever
-										size={24}
-										className={styles.deleteIcon}
-										onClick={() => onDeleteUserHandler(user?.id!)}
-									/>
-									<span className={styles.toolTip}>Видалити</span>
-								</div>
-							</td>
-						</tr>
-					))}
+					{filteredUsers &&
+						filteredUsers?.map((user) => (
+							<tr key={user.id}>
+								<th scope="row" className={styles.usersTableTh}>
+									{user.id}
+								</th>
+								<td className={styles.usersTableTd}>{user.username}</td>
+								<td className={styles.usersTableTd}>{user.email}</td>
+								<td className={styles.usersTableTd}>{user.name}</td>
+								<td className={styles.usersTableTd}>{user.pharmacy_number}</td>
+								<td className={styles.usersTableTd}>
+									{user.is_admin ? 'Адмін' : 'Користувач'}
+								</td>
+								<td
+									className={`${styles.usersTableTd} ${styles.usersTableTdBtn}`}
+								>
+									<div className={styles.deleteUserContainer}>
+										<MdDeleteForever
+											size={24}
+											className={styles.deleteIcon}
+											onClick={() => onDeleteUserHandler(user?.id!)}
+										/>
+										<span className={styles.toolTip}>Видалити</span>
+									</div>
+								</td>
+							</tr>
+						))}
 				</tbody>
 			</table>
 		</div>

@@ -1,7 +1,28 @@
 .usersTableContainer {
 	position: relative;
 }
+.usersTableSearchContainer {
+	position: relative;
+	width: fit-content;
+}
+.usersTableSearchInput {
+	padding: 4px 32px 4px 8px;
+	font-size: 18px;
+	border: none;
+	border-radius: 4px;
+	outline: none;
+	&:focus {
+		box-shadow: #db498f 0px 1px 3px 1px, #db498f 0px 0px 0px 2px;
+	}
+}
+.usersTableSearchIcon {
+	position: absolute;
+	right: 4px;
+	top: 3px;
+	cursor: pointer;
+}
 .usersTable {
+	margin-top: 16px;
 	border-collapse: collapse;
 	border: 2px solid rgb(140 140 140);
 	font-size: 0.8rem;
@@ -10,6 +31,9 @@
 
 .usersTableHead {
 	background-color: rgb(228 240 245);
+}
+.usersTableHead > tr > th {
+	cursor: pointer;
 }
 .usersTableBody {
 	color: #fff;
