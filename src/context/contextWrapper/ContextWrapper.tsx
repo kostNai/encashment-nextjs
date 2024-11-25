@@ -8,6 +8,6 @@ type Props = {
 	children: ReactNode
 }
 
-export default function Contexts({ children, session }: Props) {
+export default function ContextWrapper({ children, session }: Props) {
 	return <SessionProvider session={session}>{children}</SessionProvider>
 }

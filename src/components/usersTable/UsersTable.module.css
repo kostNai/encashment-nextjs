@@ -35,6 +35,12 @@
 .usersTableHead > tr > th {
 	cursor: pointer;
 }
+.usersTableThHeaedContainer {
+	display: flex;
+	gap: 4px;
+	justify-content: center;
+	align-items: center;
+}
 .usersTableBody {
 	color: #fff;
 }
@@ -44,7 +50,12 @@
 	padding: 8px 10px;
 	text-align: center;
 }
-
+.userTableActionsContainer {
+	margin-top: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
 .deleteIcon {
 	margin-bottom: 4px;
 	cursor: pointer;
@@ -54,19 +65,30 @@
 		scale: 1.2;
 	}
 }
-
-.deleteUserContainer {
-	position: relative;
-	padding: 4px 0;
+.editUserIcon {
+	cursor: pointer;
 	transition: 300ms;
+	&:hover {
+		scale: 1.2;
+	}
 }
-.toolTip {
-	position: absolute;
+.deleteUserToolTip {
 	visibility: hidden;
 	font-size: 10px;
-	left: 10px;
-	bottom: 0;
 }
-.deleteUserContainer:hover .toolTip {
+.deleteUserContainer:hover .deleteUserToolTip {
 	visibility: visible;
+}
+.editUserToolTip {
+	visibility: hidden;
+	font-size: 10px;
+}
+.editUserContainer:hover .editUserToolTip {
+	visibility: visible;
+}
+.userDeleteDialog {
+	top: 30%;
+	left: 40%;
+	border: none;
+	border-radius: 8px;
 }

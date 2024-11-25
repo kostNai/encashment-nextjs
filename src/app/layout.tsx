@@ -1,12 +1,11 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
 import './globals.css'
 
 import { Montserrat } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
 import { getServerSession } from 'next-auth'
 import { authConfig } from './api/auth/[...nextauth]/config'
-import Contexts from '@/components/contexts/Contexts'
+import Contexts from '@/context/contextWrapper/ContextWrapper'
 
 const motserrat = Montserrat({
 	subsets: ['latin'],
