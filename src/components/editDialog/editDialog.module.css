@@ -1,0 +1,53 @@
+.editDialog {
+	top: 30%;
+	left: 40%;
+	padding: 16px 32px;
+	border: none;
+	border-radius: 8px;
+	box-shadow: #db498f 0px 1px 3px 0px, #db498f 0px 0px 0px 1px;
+}
+.editDiaogForm {
+	display: flex;
+	flex-direction: column;
+}
+.editDialogTitle {
+	text-align: center;
+	font-weight: 600;
+}
+.editDialogInput {
+	margin-top: 8px;
+	border: none;
+	outline: none;
+	padding: 4px 8px;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+		rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+	border-radius: 4px;
+	font-size: 16px;
+}
+.editDialogBtnContainer {
+	display: flex;
+	gap: 8px;
+}
+.editDialogBtn {
+	margin-top: 8px;
+	flex: 0 1 50%;
+	padding: 4px 8px;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	color: #fff;
+	cursor: pointer;
+	transition: 300ms;
+}
+.btnSuccess {
+	background-color: #3a673d;
+	&:hover {
+		box-shadow: #000000 0px 1px 3px 1px, #000000 0px 0px 0px 1px;
+	}
+}
+.btnCancel {
+	background-color: #db498f;
+	&:hover {
+		box-shadow: #000000 0px 1px 3px 1px, #000000 0px 0px 0px 1px;
+	}
+}
