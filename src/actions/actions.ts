@@ -59,6 +59,23 @@ export const addUser = async (
 	}
 	return { message: 'Додано успішно', success: true }
 }
+export const editUser = async (
+	id: string,
+	prevState: { message: string; success: boolean },
+	formData: FormData
+) => {
+	const data = Object.fromEntries(formData)
+	console.log(id)
+	try {
+		const res = await axios.put(`${apiLink}/users/${id}`, {
+			...data
+		})
+		return { message: 'Змінено успішно', success: true }
+	} catch (error) {
+		console.log(error)
+		return { message: 'Помилка', success: false }
+	}
+}
 export const revalidateByPath = (path: string) => {
 	revalidatePath(path, 'page')
 }

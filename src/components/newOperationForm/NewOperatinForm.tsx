@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 import styles from './newOperationForm.module.css'
 import { newOperation } from '@/actions/actions'
 import ModalLoading from '../modalLoading/ModalLoading'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/ReactToastify.min.css'
 
 type Props = {
@@ -68,7 +68,6 @@ export default function NewOperatinForm({ userId }: Props) {
 			className={styles.newEncashmentForm}
 			onSubmit={onSubmitHandler}
 		>
-			<ToastContainer />
 			<div className={styles.newEncashmentInputsTitlesContainer}>
 				<h3>Номінал</h3>
 				<h3>Кількість купюр</h3>

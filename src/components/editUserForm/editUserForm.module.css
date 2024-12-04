@@ -7,9 +7,23 @@
 	border-bottom: 1px solid #db498f;
 	margin-bottom: 32px;
 }
+.editUserFormLabelsContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
 .editUserLabel {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 	color: #fff;
+}
+.editIcon {
+	cursor: pointer;
+}
+.editUserAddNewInfoLink {
+	font-size: 15px;
+	font-weight: 600;
+	text-decoration: underline;
+	cursor: pointer;
 }

@@ -4,7 +4,7 @@ import styles from './NewUserForm.module.css'
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5'
 import { addUser, revalidateByPath } from '@/actions/actions'
 import { useFormState } from 'react-dom'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/ReactToastify.min.css'
 
 const initialState = {
@@ -29,7 +29,6 @@ export default function NewUserForm() {
 
 	return (
 		<div className={styles.test}>
-			<ToastContainer />
 			<form action={formAction} className={styles.addUserForm} ref={formRef}>
 				<h2 className={styles.addUserFormTitle}>Новий користувач</h2>
 				<div className={styles.addUserFormLabelesContainer}>

@@ -2,6 +2,7 @@
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import React, { ReactNode } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 type Props = {
 	session: Session | null
@@ -9,5 +10,10 @@ type Props = {
 }
 
 export default function ContextWrapper({ children, session }: Props) {
-	return <SessionProvider session={session}>{children}</SessionProvider>
+	return (
+		<SessionProvider session={session}>
+			<ToastContainer />
+			{children}
+		</SessionProvider>
+	)
 }

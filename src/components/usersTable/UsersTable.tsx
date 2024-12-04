@@ -8,7 +8,7 @@ import { IoCloseOutline } from 'react-icons/io5'
 import { HiArrowsUpDown } from 'react-icons/hi2'
 import { FaUserEdit } from 'react-icons/fa'
 import { useEffect, useRef, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import { User } from '@/types'
 import styles from './usersTable.module.css'
@@ -124,7 +124,6 @@ export default function UsersTable({ users }: Props) {
 	}
 	return (
 		<div className={styles.usersTableContainer}>
-			<ToastContainer />
 			<div className={styles.usersTableSearchContainer}>
 				<input
 					type="text"
