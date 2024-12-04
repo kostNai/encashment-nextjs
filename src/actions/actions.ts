@@ -65,7 +65,7 @@ export const editUser = async (
 	formData: FormData
 ) => {
 	const data = Object.fromEntries(formData)
-	console.log(id)
+	console.log(data)
 	try {
 		const res = await axios.put(`${apiLink}/users/${id}`, {
 			...data

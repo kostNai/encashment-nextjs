@@ -27,6 +27,7 @@ export default function EditDialog({
 	const editUserWithId = editUser.bind(null, id)
 	const [state, formAction] = useFormState(editUserWithId, initialState)
 	const [inputValue, setInputValue] = useState<string | undefined>('')
+	const [selectedValue, setSelectedValue] = useState<string | undefined>('')
 
 	useEffect(() => {
 		if (confirmEdit) {
@@ -51,13 +52,26 @@ export default function EditDialog({
 				<label htmlFor={name} className={styles.editDialogTitle}>
 					Змінити {title}
 				</label>
-				<input
-					type="text"
-					name={name}
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-					className={styles.editDialogInput}
-				/>
+				{name === 'is_admin' ? (
+					<select
+						name={name}
+						id={name}
+						value={selectedValue}
+						onChange={(e) => setSelectedValue(e.target.value)}
+						defaultValue={'true'}
+					>
+						<option value="true">Адмін</option>
+						<option value="false">Користувач</option>
+					</select>
+				) : (
+					<input
+						type="text"
+						name={name}
+						value={inputValue}
+						onChange={(e) => setInputValue(e.target.value)}
+						className={styles.editDialogInput}
+					/>
+				)}
 				<div className={styles.editDialogBtnContainer}>
 					<button
 						className={`${styles.editDialogBtn} ${styles.btnSuccess}`}
