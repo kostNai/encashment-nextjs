@@ -1,4 +1,3 @@
-import { User } from '@/types'
 import { IoIosCheckmarkCircle } from 'react-icons/io'
 import { MdOutlineCancel } from 'react-icons/md'
 import styles from './confirmModal.module.css'

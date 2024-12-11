@@ -13,3 +13,11 @@ export const getUser = (id: string) => {
 	)
 	return data
 }
+export const fetchUSers = () => {
+	const { data, error, isLoading } = useSWR(
+		'http://127.0.0.1:8000/api/users',
+		fetcher,
+		{ revalidateIfStale: true, revalidateOnMount: true }
+	)
+	return data
+}
