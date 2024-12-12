@@ -1,45 +1,51 @@
 .operationsTable {
-	margin-top: 64px;
-	border-collapse: collapse;
-	border: 2px solid rgb(140 140 140);
-	font-size: 0.8rem;
-	letter-spacing: 1px;
+    margin-top: 64px;
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
 }
 
 .operationsTableHead {
-	background-color: rgb(228 240 245);
+    background-color: rgb(228 240 245);
 }
 .operationsTableBody {
-	color: #fff;
+    color: #fff;
 }
 
 .operationsTableTh,
 .operationsTableTd {
-	border: 1px solid rgb(160 160 160);
-	padding: 8px 10px;
-	text-align: center;
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+    text-align: center;
 }
 .deleteIcon {
-	margin-bottom: 6px;
-	cursor: pointer;
-	transition: 300ms;
-	color: #db498f;
-	&:hover {
-		scale: 1.2;
-	}
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: 300ms;
+    color: #db498f;
+    &:hover {
+        scale: 1.2;
+    }
 }
 
 .deleteOperationContainer {
-	position: relative;
-	transition: 300ms;
+    position: relative;
+    transition: 300ms;
 }
 .toolTip {
-	position: absolute;
-	visibility: hidden;
-	font-size: 10px;
-	left: 6px;
-	bottom: 0;
+    position: absolute;
+    visibility: hidden;
+    font-size: 10px;
+    left: 6px;
+    bottom: 0;
 }
 .deleteOperationContainer:hover .toolTip {
-	visibility: visible;
+    visibility: visible;
+}
+.deleteDialog {
+    top: 30%;
+    left: 40%;
+    border: none;
+    border-radius: 8px;
 }

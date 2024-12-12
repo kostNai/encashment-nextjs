@@ -2,7 +2,6 @@ import axios from 'axios'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
-    console.log('test')
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
     try {

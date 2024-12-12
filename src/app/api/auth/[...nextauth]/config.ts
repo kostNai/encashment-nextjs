@@ -49,7 +49,7 @@ export const authConfig: AuthOptions = {
             return session
         },
 
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger }) {
             if (user) {
                 token.id = user.user.id
                 token.username = user.user.username
