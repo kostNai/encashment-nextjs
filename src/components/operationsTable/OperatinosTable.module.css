@@ -1,11 +1,38 @@
+.operationsTableSearchContainer {
+    margin-top: 63px;
+    position: relative;
+    width: fit-content;
+}
+.operationsTableSearchInput {
+    padding: 4px 32px 4px 8px;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    &:focus {
+        box-shadow: #db498f 0px 1px 3px 1px, #db498f 0px 0px 0px 2px;
+    }
+}
+.operationsTableSearchIcon {
+    position: absolute;
+    right: 4px;
+    top: 3px;
+    cursor: pointer;
+}
+
 .operationsTable {
-    margin-top: 64px;
+    margin-top: 16px;
     border-collapse: collapse;
     border: 2px solid rgb(140 140 140);
     font-size: 0.8rem;
     letter-spacing: 1px;
 }
-
+.operationsTableThHeadContainer {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
 .operationsTableHead {
     background-color: rgb(228 240 245);
 }
